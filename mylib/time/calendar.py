@@ -1,5 +1,6 @@
 """Calendar operations."""
 
+from abc import abstractmethod
 from enum import IntEnum
 
 
@@ -47,6 +48,13 @@ class BusinessDayConvention(IntEnum):
 class Holiday:
     """Base class for holidays."""
 
+    def __init__(self, name=None):
+        self.name = name
+
+    @abstractmethod
+    def __eq__(self, d):
+        pass
+
 
 class HolidayFixed(Holiday):
     """Fixed holiday."""
@@ -54,9 +62,25 @@ class HolidayFixed(Holiday):
     month:  Month
     day:    int
 
+    def __init__(self, month, day, name=None):
+        super.__init__(self, name)
+        self.month = month
+        self.day = day
+
+    def __eq__(self, d):
+        return False
+
 
 class HolidayVariable(Holiday):
     """Variable holiday."""
+
+    def __init__(self, year, month, day):
+        self.year = year
+        self.month = month
+        self.day = day
+
+    def __eq__(self, d):
+        return False
 
 
 class Calendar:

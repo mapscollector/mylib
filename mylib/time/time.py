@@ -14,4 +14,14 @@ class DayCount(IntEnum):
 
 def year_fraction(d1, d2, day_count: DayCount=DayCount.ACT_360):
     """Calculate year fraction between d1 and d2 in line with day_count convention."""
-    pass
+
+    if day_count == DayCount.ACT_365:
+        pass
+    elif day_count == DayCount.ACT_360:
+        pass
+    elif day_count == DayCount.THIRTY_360:
+        pass
+    elif day_count == DayCount.ACT_ACT:
+        pass
+    else:
+        raise ValueError

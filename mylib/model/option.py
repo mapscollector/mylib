@@ -112,7 +112,7 @@ class BlackFormula(OptionFormula):
         d1, _ = BlackFormula._precalc(f, k, std)
 
         return df * f * norm.pdf(d1) * np.sqrt(t)
-    
+
     @staticmethod
     def vanna(df, f, k, t, sigma, opt_type: OptionType=OptionType.CALL):
         """Calculate option vanna."""
@@ -121,7 +121,7 @@ class BlackFormula(OptionFormula):
         d1, d2 = BlackFormula._precalc(f, k, std)
 
         return -df * norm.pdf(d1) * d2 / sigma
-    
+
     @staticmethod
     def volga(df, f, k, t, sigma, opt_type: OptionType=OptionType.CALL):
         """Calculate option volga."""
