@@ -1,0 +1,15 @@
+[project]
+name = "mylib"
+version = "0.0.1"
+dependencies = [
+    "numpy>=1.26.4",
+    "scipy>=1.13.0"
+]
+[tool.setuptools]
+packages = [
+    "mylib",
+    "mylib.interest",
+    "mylib.interest.model",
+    "mylib.math",
+    "mylib.model"
+]
