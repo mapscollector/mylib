@@ -25,12 +25,12 @@ class NonArbitrageModel(ShortRateModel):
     """Base class for all short rate non-arbitrage models."""
 
     def __init__(self, int_rate_curve: InterestRateCurve) -> None:
-        self.ts = int_rate_curve
+        self.term_struct = int_rate_curve
 
     def instantenuous_fwd(self, t, dt=0.0001):
         """Return instantenuous forward rate for time t."""
 
-        return self.ts.forward_rate(t, t+dt, comp=Compound.CONTINUOUS)
+        return self.term_struct.forward_rate(t, t+dt, comp=Compound.CONTINUOUS)
 
 
 class GeneralEquilibriumModel(ShortRateModel):
@@ -102,7 +102,7 @@ class OneFactorAffineModel(AffineModel):
 
         return BlackFormula.value(1.0, p2, p1 * k, t1, sigma, opt)
 
-    def caplet(self, t0, r0, t1, t2, tau, k, opt: OptionType=OptionType.CALL):
+    def optlet(self, t0, r0, t1, t2, tau, k, opt: OptionType=OptionType.CALL):
         """Return the price of a caplet/floorlet."""
 
         acc = 1.0 + k * tau
@@ -112,7 +112,7 @@ class OneFactorAffineModel(AffineModel):
     def capfloor(self, t0, r0, t1, t2, tau, k, opt: OptionType=OptionType.CALL):
         """Return the price of a cap/floor."""
 
-        return np.sum(self.caplet(t0, r0, t1, t2, tau, k, opt))
+        return np.sum(self.optlet(t0, r0, t1, t2, tau, k, opt))
 
     def swaption(self, t0, r0, t1, t2, tau, k, opt: OptionType=OptionType.CALL):
         """Return the price of a swaption."""

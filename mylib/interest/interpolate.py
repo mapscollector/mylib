@@ -25,7 +25,9 @@ class InterestRateCurveInterpolator:
     def __init__(self, t, df, interp_type, conversion_type):
         self.converter_ = ConverterFactory.get(conversion_type)
         self.interp_ = InterpolatorFactory.get(
-            t, self.converter_.convert(t, df), interp_type
+            t, 
+            self.converter_.convert(t, df), 
+            interp_type
         )
 
     def __call__(self, t):
